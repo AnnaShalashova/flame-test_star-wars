@@ -1,7 +1,7 @@
 # 💥🤖🪄 Star Wars (Flame) Test Project 
 
 ## DEMO
-[https://star-wars-test-project.netlify.app/](https://star-wars-test-project.netlify.app/)
+[https://star-wars-flame-test.vercel.app/](https://star-wars-flame-test.vercel.app/)
 
 
 ## SCREEN
