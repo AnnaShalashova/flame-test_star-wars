@@ -1,0 +1,105 @@
+@keyframes ldio-w62l27t2hcg-1 {
+  0% {
+    top: 20.52px;
+    height: 72.96px;
+  }
+
+  50% {
+    top: 34.199999999999996px;
+    height: 45.599999999999994px;
+  }
+
+  100% {
+    top: 34.199999999999996px;
+    height: 45.599999999999994px;
+  }
+}
+
+@keyframes ldio-w62l27t2hcg-2 {
+  0% {
+    top: 23.939999999999994px;
+    height: 66.12px;
+  }
+
+  50% {
+    top: 34.199999999999996px;
+    height: 45.599999999999994px;
+  }
+
+  100% {
+    top: 34.199999999999996px;
+    height: 45.599999999999994px;
+  }
+}
+
+@keyframes ldio-w62l27t2hcg-3 {
+  0% {
+    top: 27.36px;
+    height: 59.279999999999994px;
+  }
+
+  50% {
+    top: 34.199999999999996px;
+    height: 45.599999999999994px;
+  }
+
+  100% {
+    top: 34.199999999999996px;
+    height: 45.599999999999994px;
+  }
+}
+
+.spinnerInner div {
+  position: absolute;
+  width: 15px;
+}
+
+.spinnerInner div:nth-child(1) {
+  left: 19.95px;
+  background: rgba(204, 80, 218, 0.8588235294);
+  animation: ldio-w62l27t2hcg-1 0.7246376811594202s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+  animation-delay: -0.14492753623188406s;
+}
+
+.spinnerInner div:nth-child(2) {
+  left: 48.449999999999996px;
+  background: #763da3;
+  animation: ldio-w62l27t2hcg-2 0.7246376811594202s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+  animation-delay: -0.07246376811594203s;
+}
+
+.spinnerInner div:nth-child(3) {
+  left: 76.94999999999999px;
+  background: #8d73d7;
+  animation: ldio-w62l27t2hcg-3 0.7246376811594202s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+  animation-delay: undefineds;
+}
+
+.spinnerOuter {
+  width: 114px;
+  height: 114px;
+  display: inline-block;
+  overflow: hidden;
+  background: transparent;
+}
+
+.spinnerInner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(1);
+  backface-visibility: hidden;
+  transform-origin: 0 0;
+  /* see note above */
+}
+
+.spinnerInner div {
+  box-sizing: content-box;
+}
+
+.pageloader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: var(--min-page-height);
+}

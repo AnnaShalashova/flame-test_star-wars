@@ -1,0 +1,11 @@
+.mainpage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--min-page-height);
+}
+
+.offsetter {
+  margin-top: -100px;
+}

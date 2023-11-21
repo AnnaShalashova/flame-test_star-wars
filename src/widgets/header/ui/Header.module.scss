@@ -1,0 +1,61 @@
+.header {
+  box-sizing: content-box;
+  background: #000;
+  height: var(--main-header-height);
+  border-bottom: 10px solid #DD58D6;
+}
+
+.link {
+  font-size: 1.5em;
+  text-decoration: none;
+  text-transform: uppercase;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.slogan {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  letter-spacing: 0.1em;
+  height: 100%;
+  font-size: 42px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: 'Alfa Slab One', cursive;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.star {
+  color: var(--primary-color);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(71.78deg,
+      #681991 27.87%,
+      #763da3 52.56%,
+      #cc50dadb 74.58%)
+}
+
+.wars {
+  color: var(--secondary-color);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(71.78deg,
+      #681991 27.87%,
+      #763da3 52.56%,
+      #cc50dadb 74.58%)
+}
+
+.vertical {
+  height: var(--main-header-height);
+  width: 20px;
+  background: #DD58D6;
+  margin-right: 25px;
+  margin-left: 25px;
+  transform: skew(-25deg);
+}
