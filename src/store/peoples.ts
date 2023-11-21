@@ -39,7 +39,7 @@ export class PeoplesStore {
     toggleFavorites = (person: Person) => {
         const updatedPeoples = this.peoples.map(p => {
             if (p.id === person.id) {
-                p.isFavorite = !p.isFavorite
+                p.isFavorite = p.isFavorite ? '' : 'favorite'
             }
             return p;
         });

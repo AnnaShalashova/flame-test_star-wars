@@ -9,7 +9,7 @@ import { LoadTrackableCardMedia } from 'src/shared/ui/load-trackable-image';
 import { observer } from 'mobx-react-lite';
 import { PageLoader } from 'src/widgets/page-loader';
 
-interface PersonCard {
+interface PersonCardProps {
   className?: string;
   status: FetchStatus;
   person: Person | null,

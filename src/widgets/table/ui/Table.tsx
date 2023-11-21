@@ -87,7 +87,7 @@ export const Table = observer(({
                                     onClick={() => navigate(`/${AppRoutes.PEOPLES}/${item.id}`)}
                                 >
                                     {cellKeys.map((key, idx) => (
-                                        <TableCell key={idx} align="center">{item[key]}</TableCell>
+                                        <TableCell key={idx} align="center">{item[key].toString()}</TableCell>
                                     ))}
                                     {actions && actions.component(item)}
                                 </TableRow >

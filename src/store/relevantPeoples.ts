@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { FetchStatus } from "src/shared/api";
-import { NormalizedPeoples, fetchPeoplesNormalize } from "src/entities/peoples/api";
+import { fetchPeoplesNormalize } from "src/entities/peoples/api";
 import { Person } from "src/entities/peoples/model/types/peoplesSchema";
 import { FlowReturn } from "./types";
 

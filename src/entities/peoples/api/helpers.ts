@@ -1,3 +1,4 @@
+
 import { RawPerson, Person } from '../model/types/peoplesSchema';
 
 export const PEOPLES_IMAGE_BASE =
@@ -19,7 +20,7 @@ export function normalizePerson(raw: any, favorites: Person[]): Person {
     ...raw,
     id,
     image: getPeopleImage(id),
-    isFavorite: !!favorites?.find(favPer => favPer.id === id)
+    isFavorite: favorites?.find(favPer => Number(favPer.id) === id) ? 'favorite' : ''
   };
 
   Object.entries(raw).forEach(([key, value]) => {

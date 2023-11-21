@@ -41,7 +41,7 @@ export class ErrorBoundary extends Component<
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     // send error info to error logger (backend)
-    // console.log(error, errorInfo);
+    console.log(error, errorInfo);
   }
 
   render(): ReactNode {

@@ -1,4 +1,4 @@
-import { normalizePeoples, normalizePerson, normalizePersonDetails } from './helpers';
+import { normalizePeoples, normalizePerson } from './helpers';
 import { Person } from '../model/types/peoplesSchema';
 import { buildEndpoint } from 'src/shared/api';
 
