@@ -71,7 +71,7 @@ export const PersonCard = observer((
   }
 
   const { name, image } = person;
-  const btnText = isPersonFavorite(person, favorites) ? 'Remove' : 'Add' + ' favorite';
+  const btnText = (isPersonFavorite(person, favorites) ? 'Remove' : 'Add') + ' favorite';
 
   return (
     <Grid

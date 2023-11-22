@@ -1,8 +1,6 @@
 import { normalizePeoples, normalizePerson } from './helpers';
 import { Person } from '../model/types/peoplesSchema';
-import { buildEndpoint } from 'src/shared/api';
-
-export const PEOPLES_API_BASE = 'https://swapi.dev/api/people';
+import { PEOPLES_API_BASE, buildEndpoint } from 'src/shared/api';
 
 interface PeoplesHTTPResponse {
   [x: string]: any;
