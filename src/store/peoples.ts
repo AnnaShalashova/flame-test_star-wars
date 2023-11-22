@@ -4,7 +4,9 @@ import { NormalizedPeoples, fetchPeoplesNormalize } from "src/entities/peoples/a
 import { Person } from "src/entities/peoples/model/types/peoplesSchema";
 import { makePersistable } from "mobx-persist-store";
 import { FlowReturn } from "./types";
-import { DEFAULT_PAGE, DEFAULT_PAGINATION_COUNT, TOTAL_PEOPLES } from "src/entities/peoples";
+import { DEFAULT_PAGE, TOTAL_PEOPLES } from "src/entities/peoples";
+import { isPersonFavorite } from "src/entities/peoples/api/helpers";
+import { DEFAULT_CELL_KEYS, DEFAULT_COLUMNS } from "src/entities/peoples/constants";
 
 
 export class PeoplesStore {
@@ -12,22 +14,11 @@ export class PeoplesStore {
     favorites: Person[] = [];
     status: FetchStatus = FetchStatus.IDLE;
 
-    count: number = DEFAULT_PAGINATION_COUNT;
-    countTotal: number | null = TOTAL_PEOPLES;
+    count: number = TOTAL_PEOPLES;
     currentPage: number = DEFAULT_PAGE;
 
-    columns: string[] = [
-        'Name',
-        'Height',
-        'Mass',
-        'Hair color'
-    ];
-    cellKeys: (keyof Person)[] = [
-        'name',
-        'height',
-        'mass',
-        'hair_color'
-    ];
+    columns: string[] = DEFAULT_COLUMNS;
+    cellKeys: string[] = DEFAULT_CELL_KEYS;
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
@@ -37,32 +28,20 @@ export class PeoplesStore {
     }
 
     toggleFavorites = (person: Person) => {
-        const updatedPeoples = this.peoples.map(p => {
-            if (p.id === person.id) {
-                p.isFavorite = p.isFavorite ? '' : 'favorite'
-            }
-            return p;
-        });
-        this.peoples = updatedPeoples;
-
-        const isFavoritesPerson = this.favorites.find(p => p.id === person.id);
-        if (isFavoritesPerson) {
+        if (isPersonFavorite(person, this.favorites)) {
             this.favorites = this.favorites.filter(favPerson => favPerson.id !== person.id)
         } else {
             this.favorites.push(person);
         }
     }
 
-    setCurrentPage = (pageNumber: number) => {
-        this.currentPage = pageNumber;
-    }
-
-    *fetchPeoples(): FlowReturn<typeof fetchPeoplesNormalize> {
+    *fetchPeoples(page: number = this.currentPage): FlowReturn<typeof fetchPeoplesNormalize> {
         try {
             this.status = FetchStatus.LOADING;
             const result: NormalizedPeoples = yield fetchPeoplesNormalize(
-                { currentPage: this.currentPage, favorites: this.favorites });
+                { currentPage: page });
             this.peoples = result.items;
+            this.currentPage = page;
             this.status = FetchStatus.SUCCEDED;
         } catch (error) {
             this.status = FetchStatus.ERROR;

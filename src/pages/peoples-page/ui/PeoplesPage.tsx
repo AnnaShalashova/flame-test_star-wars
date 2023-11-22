@@ -12,6 +12,7 @@ import { Button, TableCell } from '@mui/material';
 import { useStore } from 'src/app/providers/store-provider/ui/StoreProvider';
 import { PeoplesPagination } from 'src/features/peoples-pagination/ui/PeoplesPagination';
 import { PeoplesSearch } from 'src/features/peoples-search';
+import { isPersonFavorite } from 'src/entities/peoples/api/helpers';
 
 interface PeoplesPageProps {
   className?: string;
@@ -40,7 +41,7 @@ const PeoplesPage = observer((props: PeoplesPageProps) => {
             toggleFavorites(person)
           }}
         >
-          {person.isFavorite ? (
+          {isPersonFavorite(person, favorites) ? (
             <GradeIcon color="primary" />
           ) : (
             <GradeOutlinedIcon color="primary" />
@@ -51,13 +52,14 @@ const PeoplesPage = observer((props: PeoplesPageProps) => {
   }
 
   const handleFetchRelevantPeoples = () => {
-    fetchRelevantPeoples(favorites);
+    fetchRelevantPeoples();
   }
 
   useEffect(() => {
     if (!peoples.length) {
       fetchPeoples();
     }
+
     // cancel request here if need it
   }, []);
 

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 interface ListItemLinkProps {
     primary: string;
     to: string;
+    id: number
 }
 
 const ListItemStyles = {
@@ -13,11 +14,11 @@ const ListItemStyles = {
 }
 
 export function ListItemLink(props: ListItemLinkProps) {
-    const { primary, to } = props;
+    const { primary, to, id } = props;
 
     return (
         <Link to={to}>
-            <ListItem sx={ListItemStyles}>
+            <ListItem sx={ListItemStyles} key={id}>
                 <ListItemText primary={primary} />
             </ListItem>
         </Link>

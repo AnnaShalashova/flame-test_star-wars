@@ -8,6 +8,7 @@ import { PEOPLES_TEXT, Person } from 'src/entities/peoples';
 import { LoadTrackableCardMedia } from 'src/shared/ui/load-trackable-image';
 import { observer } from 'mobx-react-lite';
 import { PageLoader } from 'src/widgets/page-loader';
+import { isPersonFavorite } from 'src/entities/peoples/api/helpers';
 
 interface PersonCardProps {
   className?: string;
@@ -16,6 +17,11 @@ interface PersonCardProps {
   favorites: Person[] | null,
   toggleFavorites: (person: Person) => void
 }
+
+const KEYS_IGNORED = [
+  'id',
+  'image'
+]
 
 const gridStyles = {
   display: 'flex',
@@ -29,15 +35,15 @@ const ListStyles = {
   overflow: 'auto',
   maxHeight: 400,
   '& ul': { padding: 0 },
-  '& a': { color: 'white', 'text-decoration': 'none' },
+  '& a': { color: 'white', textDecoration: 'none' },
   '&::-webkit-scrollbar': { width: '5px' },
   '&::-webkit-scrollbar-track': {
     bgcolor: '#000',
-    'border-radius': '20px',
+    borderRadius: '20px',
   },
   '&::-webkit-scrollbar-thumb': {
     bgcolor: '#681991',
-    'border-radius': '50px',
+    borderRadius: '50px',
   }
 }
 
@@ -45,7 +51,8 @@ const cardMediaProps = {
   sx: { height: 535, width: 350, objectFit: 'cover' },
 };
 
-export const PersonCard = observer(({ person, status, favorites, toggleFavorites }: PersonCardProps) => {
+export const PersonCard = observer((
+  { person, status, favorites, toggleFavorites }: PersonCardProps) => {
 
   if (status === FetchStatus.LOADING) {
     return (
@@ -63,8 +70,8 @@ export const PersonCard = observer(({ person, status, favorites, toggleFavorites
     return <Message text={PEOPLES_TEXT.NO_PEOPLES_FOUND} />;
   }
 
-  const { name, image, id } = person;
-  const isFavoritePerson = !!favorites?.find(favPer => favPer.id === id)
+  const { name, image } = person;
+  const btnText = isPersonFavorite(person, favorites) ? 'Remove' : 'Add' + ' favorite';
 
   return (
     <Grid
@@ -88,11 +95,14 @@ export const PersonCard = observer(({ person, status, favorites, toggleFavorites
         <Card sx={{ width: 400, height: 480 }}>
           <CardContent>
             <List sx={ListStyles} >
-              {Object.keys(person).map(key => (
-                <ListItem >
-                  <ListItemText primary={person[key]} secondary={key} />
-                </ListItem>
-              ))}
+              {Object.keys(person).map(key => {
+                if (KEYS_IGNORED.includes(key)) return;
+                return (
+                  <ListItem key={key}>
+                    <ListItemText primary={person[key as keyof Person]} secondary={key} />
+                  </ListItem>
+                )
+              })}
             </List>
             {(
               <Button
@@ -102,7 +112,7 @@ export const PersonCard = observer(({ person, status, favorites, toggleFavorites
                 size="large"
                 onClick={() => toggleFavorites(person)}
               >
-                {`${isFavoritePerson ? 'Remove' : 'Add'} favorite`}
+                {btnText}
               </Button>
             )}
           </CardContent>

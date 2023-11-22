@@ -21,7 +21,7 @@ const PersonDetailsPage = observer(({
   const favorites = toJS(favoritesProxy);
 
   useEffect(() => {
-    fetchPerson(Number(id), favorites);
+    fetchPerson(Number(id));
   }, [])
 
   return (

@@ -14,26 +14,40 @@ export function getPeopleImage(id: number): string {
   return `${PEOPLES_IMAGE_BASE}/${id}.jpg`;
 }
 
-export function normalizePerson(raw: any, favorites: Person[]): Person {
-  const id = parseId(raw.url);
-  const normalizedPerson = {
-    ...raw,
-    id,
-    image: getPeopleImage(id),
-    isFavorite: favorites?.find(favPer => Number(favPer.id) === id) ? 'favorite' : ''
-  };
+export function isPersonFavorite(person: Person, favorites: Person[] | null): boolean {
+  return !!favorites?.find(favPer => Number(favPer.id) === person.id)
 
-  Object.entries(raw).forEach(([key, value]) => {
-    if (Array.isArray(value)) {
-      const stringValue: string = value.reduce((acc: string, cur: string, idx: number) => (
-        acc + cur + `${idx < (value.length - 1) ? ', ' : ''}`), '');
-      normalizedPerson[key] = stringValue
-    }
-  })
-
-  return normalizedPerson;
 }
 
-export function normalizePeoples(raw: RawPerson[], favorites: Person[]): Person[] {
-  return raw.map((person) => normalizePerson(person, favorites));
+export function normalizePerson(raw: RawPerson): Person {
+  const {
+    birth_year,
+    eye_color,
+    gender,
+    hair_color,
+    height,
+    mass,
+    name,
+    skin_color,
+    url,
+  } = raw;
+
+  const id = parseId(url);
+
+  return {
+    id,
+    name,
+    gender,
+    height,
+    mass,
+    image: getPeopleImage(id),
+    hairColor: hair_color,
+    skinColor: skin_color,
+    eyeColor: eye_color,
+    birthYear: birth_year,
+  };
+}
+
+export function normalizePeoples(raw: RawPerson[]): Person[] {
+  return raw.map((person) => normalizePerson(person));
 }

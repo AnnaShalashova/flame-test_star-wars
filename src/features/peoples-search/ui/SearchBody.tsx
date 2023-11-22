@@ -16,15 +16,15 @@ const ListStyles = {
     overflow: 'auto',
     maxHeight: 300,
     '& ul': { padding: 0 },
-    '& a': { color: 'white', 'text-decoration': 'none' },
+    '& a': { color: 'white', textDecoration: 'none' },
     '&::-webkit-scrollbar': { width: '5px' },
     '&::-webkit-scrollbar-track': {
         bgcolor: '#000',
-        'border-radius': '20px',
+        borderRadius: '20px',
     },
     '&::-webkit-scrollbar-thumb': {
         bgcolor: '#681991',
-        'border-radius': '50px',
+        borderRadius: '50px',
     }
 }
 
@@ -62,8 +62,8 @@ export const SearchBody = observer(({ data, status }: SearchBodyProps) => {
 
     return (
         <List sx={ListStyles}>
-            {data.map(item => (
-                <ListItemLink to={`/peoples/${item.id}`} primary={item.name} />
+            {data.map(({ id, name }) => (
+                <ListItemLink id={id} to={`/peoples/${id}`} primary={name} />
             ))}
         </List>
     )

@@ -22,10 +22,10 @@ export class RelevantPeoplesStore {
         this.relevantPeoples = [];
     }
 
-    *fetchRelevantPeoples(favorites: Person[]): FlowReturn<typeof fetchPeoplesNormalize> {
+    *fetchRelevantPeoples(): FlowReturn<typeof fetchPeoplesNormalize> {
         try {
             this.status = FetchStatus.LOADING;
-            const result = yield fetchPeoplesNormalize({ search: this.search, favorites });
+            const result = yield fetchPeoplesNormalize({ search: this.search });
             this.relevantPeoples = result.items;
             this.status = FetchStatus.SUCCEDED;
         } catch (error) {

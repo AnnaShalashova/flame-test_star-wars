@@ -15,10 +15,10 @@ export class PersonStore {
         makePersistable(this, { name: 'person', properties: ['person'], storage: window.localStorage });
     }
 
-    *fetchPerson(id: number, favorites: Person[]): FlowReturn<typeof fetchPersonNormalize> {
+    *fetchPerson(id: number): FlowReturn<typeof fetchPersonNormalize> {
         try {
             this.status = FetchStatus.LOADING;
-            const result: Person = yield fetchPersonNormalize(id, favorites);
+            const result: Person = yield fetchPersonNormalize(id);
             this.person = result;
             this.status = FetchStatus.SUCCEDED;
         } catch (error) {

@@ -1,21 +1,24 @@
 import { Pagination } from '@mui/material';
 import { observer } from 'mobx-react-lite';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useStore } from 'src/app/providers/store-provider/ui/StoreProvider';
 import { FetchStatus } from 'src/shared/api';
 
 interface PeoplesPaginationProps {
-  handleFetchPeoples: () => void;
+  handleFetchPeoples: (page: number) => void;
 }
 
 export const PeoplesPagination = observer(({ handleFetchPeoples }: PeoplesPaginationProps) => {
   const peopleStore = useStore(state => state.peoples);
-  const { currentPage, setCurrentPage, status, count } = peopleStore;
+  const { currentPage, status, count } = peopleStore;
+  const [page, setPage] = useState(currentPage)
   const disabled = status === FetchStatus.LOADING;
 
+  const [resolvedCount] = useState(Math.ceil(count! / 10));
+
   const handlePageChange = (_: ChangeEvent<unknown>, page: number) => {
-    setCurrentPage(page);
-    handleFetchPeoples();
+    setPage(page)
+    handleFetchPeoples(page);
   };
 
   return (
@@ -23,10 +26,10 @@ export const PeoplesPagination = observer(({ handleFetchPeoples }: PeoplesPagina
       variant="outlined"
       shape="rounded"
       sx={{ m: 4 }}
-      count={count}
+      count={resolvedCount}
       color="primary"
       size="large"
-      page={currentPage}
+      page={page}
       onChange={handlePageChange}
       disabled={disabled}
     />

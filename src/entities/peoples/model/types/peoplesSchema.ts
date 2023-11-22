@@ -24,5 +24,14 @@ export interface RawPerson {
 }
 
 export interface Person {
-  [key: string]: string;
+  id: number;
+  name: string;
+  height: string;
+  mass: string;
+  hairColor: string;
+  skinColor: string;
+  eyeColor: string;
+  birthYear: string;
+  gender: Gender;
+  image: string;
 }

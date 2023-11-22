@@ -14,7 +14,7 @@ import { AppRoutes } from "src/shared/config/routeConfig";
 
 interface TableProps {
     data: Person[],
-    cellKeys: (keyof Person)[],
+    cellKeys: string[],
     columns: string[],
     className?: string,
     actions?: TableActionsType,
@@ -65,7 +65,6 @@ export const Table = observer(({
         />;
     }
 
-
     return (
         <section className={classNames(cls.peoplestable, {}, [className])}>
             <TableContainer component={Paper}>
@@ -87,7 +86,7 @@ export const Table = observer(({
                                     onClick={() => navigate(`/${AppRoutes.PEOPLES}/${item.id}`)}
                                 >
                                     {cellKeys.map((key, idx) => (
-                                        <TableCell key={idx} align="center">{item[key].toString()}</TableCell>
+                                        <TableCell key={idx} align="center">{item[key as keyof Person]}</TableCell>
                                     ))}
                                     {actions && actions.component(item)}
                                 </TableRow >

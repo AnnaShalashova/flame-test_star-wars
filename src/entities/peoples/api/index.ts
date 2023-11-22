@@ -27,12 +27,11 @@ export interface NormalizedPeoples {
 interface FetchPeoplesNormalize {
   currentPage?: number,
   search?: string,
-  favorites: Person[]
 }
 
 
 export const fetchPeoplesNormalize = async (
-  { currentPage, search, favorites }: FetchPeoplesNormalize): Promise<NormalizedPeoples> => {
+  { currentPage, search }: FetchPeoplesNormalize): Promise<NormalizedPeoples> => {
   const params = { page: currentPage, search };
   const endpoint = buildEndpoint(PEOPLES_API_BASE, params)
   const response: PeoplesHTTPResponse = await fetch(endpoint);
@@ -49,14 +48,14 @@ export const fetchPeoplesNormalize = async (
     return payload;
   }
 
-  payload.items = normalizePeoples(parsed.results, favorites);
+  payload.items = normalizePeoples(parsed.results);
   return payload;
 }
 
-export const fetchPersonNormalize = async (id: number, favorites: Person[]): Promise<Person> => {
+export const fetchPersonNormalize = async (id: number): Promise<Person> => {
   const response: PeoplesHTTPResponse = await fetch(`${PEOPLES_API_BASE}/${id}`);
   const parsed = await response.json();
-  const result = normalizePerson(parsed, favorites);
+  const result = normalizePerson(parsed);
   return result;
 }
 
